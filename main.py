@@ -76,9 +76,9 @@ def addsshusers():
                 print ('usermod -a -G sudo '+newuser+'')
                 print ('usermod -a -G ssh-users '+newuser+'')
                 print ("!!! now use ssh-copy-id -i "+"${HOME}/.ssh/id_rsa.pub"+" "+newuser+":"+userpass+"@SERVER_IP")
-            input("IMPORTANT : Please add your public keys to the server NOW !")
-            input("IMPORTANT : Please change your password NOW !")
-            input("IMPORTANT : Last warning before shuting down root access")
+        input("IMPORTANT : Please add your public keys to the server NOW !")
+        input("IMPORTANT : Please change your password NOW !")
+        input("IMPORTANT : Last warning before shuting down root access")
 
 ## SSH Hardening (maybe I should write a function ?)
         if Production == True :
