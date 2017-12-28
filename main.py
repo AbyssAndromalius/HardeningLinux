@@ -46,7 +46,7 @@ def addsshusers():
     if nbuser > 0 and nbuser < 10: #CRASH if input is a string, to fix
 
      #y a surement moyen de faire ça plus propre que 512 ?
-        if os.system('getent group ssh-users') == 512 && Production == True:
+        if os.system('getent group ssh-users') == 512 & Production == True:
             os.system('addgroup ssh-users')
             print ("adding ssh-users group")
         for x in range (0, nbuser):
