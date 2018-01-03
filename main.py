@@ -40,6 +40,8 @@ enabled = true
 """)
             failfile = open('/etc/fail2ban/jail.local', 'a')
             failfile.write(failconf)            
+            os.system('systemctl reload fail2ban.service')
+            os.system('systemctl enable fail2ban.service')
     
 def addsshusers():
     nbuser=int(input("How many users do you need to add ? (between 1 to 9) "))
@@ -47,8 +49,8 @@ def addsshusers():
 
      #y a surement moyen de faire ça plus propre que 512 ?
         if os.system('getent group ssh-users') == 512 & Production == True:
+            print ("adding ssh-users group")            
             os.system('addgroup ssh-users')
-            print ("adding ssh-users group")
         for x in range (0, nbuser):
             newuser=input("What is the name of the new account ? ")
                 # WARNING NOT SECURE, CHANGE ASAP
@@ -85,22 +87,27 @@ def addsshusers():
             os.system("sed -i -e 's/#?PermitRootLogin.*/PermitRootLogin no/g' '/etc/ssh/sshd_config'")
             os.system("sed -i -e 's/#?PasswordAuthentication yes/PasswordAuthentication no/g' '/etc/ssh/sshd_config'")
             os.system("sed -i -e 's/#?PubkeyAuthentication.*/PubkeyAuthentication yes/g' '/etc/ssh/sshd_config'")
+            os.system("sed -i -e 's/#?UsePrivilegeSeparation.*/UsePrivilegeSeparation yes/g' '/etc/ssh/sshd_config'")
             sshconf = ("""
 #Limit access to users of ssh-users
 AllowGroups ssh-users
 """)
             sshfile = open('/etc/ssh/sshd_config', 'a')
-            sshfile.write(sshconf)       
+            sshfile.write(sshconf)
+            os.system('systemctl reload sshd.service')
+            os.system('systemctl enable sshd.service')
        
         else:
             print("sed -i -e 's/#?PermitRootLogin.*/PermitRootLogin no/g' '/etc/ssh/sshd_config'")
             print("sed -i -e 's/#?PasswordAuthentication yes/PasswordAuthentication no/g' '/etc/ssh/sshd_config'")
-            print("sed -i -e 's/#?PermitRootLogin.*/PermitRootLogin no/g' '/etc/ssh/sshd_config'")
+            print("sed -i -e 's/#?PubkeyAuthentication.*/PubkeyAuthentication yes/g' '/etc/ssh/sshd_config'")
+            print("sed -i -e 's/#?UsePrivilegeSeparation.*/UsePrivilegeSeparation yes/g' '/etc/ssh/sshd_config'")
             sshconf = ("""
 #Limit access to users of ssh-users
 AllowGroups ssh-users
 """)
-            print (sshconf+ "will be added to /etc/ssh/sshd_config")
+            print ("will be added to /etc/ssh/sshd_config >>>"+sshconf )
+            print ("Activation du service sshd + reboot sshd)
     else :
         print ("Too many users or layer 8 issue, skipping")
 
