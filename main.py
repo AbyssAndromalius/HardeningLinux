@@ -11,8 +11,6 @@ Production = False
 from valid import *
 from randompass import *
 import os
-#import time
-#import sys
 
 def updateall():
     if Production == True :
@@ -32,14 +30,14 @@ def hardeningtools():
         if os.path.exists('/etc/fail2ban/jail.local') is False :
             os.system('touch "/etc/fail2ban/jail.local"')
             #Edit configuration here            
-            failconf = ("""
-[ssh-ddos]
-enabled = true 
-[pam-generic] 
-enabled = true
-""")
-            failfile = open('/etc/fail2ban/jail.local', 'a')
-            failfile.write(failconf)            
+#            failconf = ("""
+#[ssh-ddos]
+#enabled = true 
+#[pam-generic] 
+#enabled = true
+#""")
+#            failfile = open('/etc/fail2ban/jail.local', 'a')
+#            failfile.write(failconf)            
             os.system('systemctl reload fail2ban.service')
             os.system('systemctl enable fail2ban.service')
     
