@@ -86,6 +86,8 @@ def addsshusers():
             os.system("sed -i -e 's/#\?PasswordAuthentication yes/PasswordAuthentication no/g' '/etc/ssh/sshd_config'")
             os.system("sed -i -e 's/#\?PubkeyAuthentication.*/PubkeyAuthentication yes/g' '/etc/ssh/sshd_config'")
             os.system("sed -i -e 's/#\?UsePrivilegeSeparation.*/UsePrivilegeSeparation yes/g' '/etc/ssh/sshd_config'")
+            os.system("sed -i -e 's/#\?UsePAM yes/UsePAM no/g' '/etc/ssh/sshd_config'")
+            os.system("sed -i -e 's/#\?ChallengeResponseAuthentication yes/ChallengeResponseAuthentication no/g' '/etc/ssh/sshd_config'")
             sshconf = ("""
 #Limit access to users of ssh-users
 AllowGroups ssh-users
@@ -100,6 +102,9 @@ AllowGroups ssh-users
             print("sed -i -e 's/#\?PasswordAuthentication yes/PasswordAuthentication no/g' '/etc/ssh/sshd_config'")
             print("sed -i -e 's/#\?PubkeyAuthentication.*/PubkeyAuthentication yes/g' '/etc/ssh/sshd_config'")
             print("sed -i -e 's/#\?UsePrivilegeSeparation.*/UsePrivilegeSeparation yes/g' '/etc/ssh/sshd_config'")
+            print("sed -i -e 's/#\?UsePAM yes/UsePAM no/g' '/etc/ssh/sshd_config'")
+            print("sed -i -e 's/#\?ChallengeResponseAuthentication yes/ChallengeResponseAuthentication no/g' '/etc/ssh/sshd_config'")
+
             sshconf = ("""
 #Limit access to users of ssh-users
 AllowGroups ssh-users
